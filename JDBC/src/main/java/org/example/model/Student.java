@@ -2,16 +2,16 @@ package org.example.model;
 
 public class Student {
 
-    private int id;
+    private Long id;
     private String name;
     private String email;
     private int age;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -39,6 +39,13 @@ public class Student {
         this.age = age;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                '}';
+    }
 }

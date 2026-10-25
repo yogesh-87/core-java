@@ -1,9 +1,8 @@
 package org.example.repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.example.model.Student;
+
+import java.sql.*;
 
 public class StudentRepository {
     String url = "jdbc:mysql://localhost:3306/information_db";
@@ -87,5 +86,47 @@ public class StudentRepository {
              System.out.println("Database Connection failed");
              e.printStackTrace();
          }
+     }
+
+
+     public void getStudentById(){
+
+         try
+         {
+             Connection connection = DriverManager.getConnection(url,username,password);
+
+             Statement statement = connection.createStatement();
+
+             String sql = "SELECT id,name,email,age " + "FROM student WHERE id = 2";
+
+             ResultSet resultSet = statement.executeQuery(sql);
+
+             resultSet.next();
+
+             Student student = mapRow(resultSet);
+
+             System.out.println(student);
+
+             connection.close();
+         }
+         catch (SQLException e){
+             System.out.println("Database Connection failed");
+             e.printStackTrace();
+         }
+     }
+
+     Student mapRow(ResultSet resultSet) throws SQLException {
+
+         Student student = new Student();
+
+         student.setId(resultSet.getLong("id"));
+         student.setName(resultSet.getString("name"));
+         student.setEmail(resultSet.getString("email"));
+         student.setAge(resultSet.getInt("age"));
+
+
+         return  student;
+
+
      }
 }

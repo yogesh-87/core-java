@@ -14,10 +14,14 @@ public class Main {
 
         StudentRepository studentRepository = new StudentRepository();
 
-//        studentRepository.createUser();
+      //  studentRepository.createUser();
 
 //        studentRepository.updateUser();
 
-        studentRepository.deleteUser();
+       // studentRepository.deleteUser();
+
+        studentRepository.getStudentById();
+
+
     }
 }
