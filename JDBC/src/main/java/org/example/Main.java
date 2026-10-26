@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.model.Student;
 import org.example.repository.StudentRepository;
 
 import java.sql.Connection;
@@ -20,8 +21,11 @@ public class Main {
 
        // studentRepository.deleteUser();
 
-        studentRepository.getStudentById();
+      //  studentRepository.getStudentById();
 
+        //studentRepository.createStudent(new Student("ram","ram@gmail.com",23));
+
+     studentRepository.updateStudent(new Student("yash","@gmiail.com",24),3);
 
     }
 }

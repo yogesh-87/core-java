@@ -9,58 +9,130 @@ public class StudentRepository {
     String username = "root";
     String password = "root";
 
-     public void createUser(){
 
-         try
-         {
-             Connection connection = DriverManager.getConnection(url,username,password);
 
-             Statement statement = connection.createStatement();
+//     public void createStudent(){
+//         try
+//         {
+//             Connection connection = DriverManager.getConnection(url,username,password);
+//
+//             Statement statement = connection.createStatement();
+//
+//             String sql = "Insert INTO student(name,email,age)" +
+//                     "VALUES('yogesh', 'y@gmail.com', 20)";
+//
+//             int result = statement.executeUpdate(sql);
+//
+//             if(result == 1){
+//                 System.out.println("Student create Successfully");
+//             }else{
+//                 System.out.println("Connection failed");
+//             }
+//
+//             connection.close();
+//         }
+//         catch (SQLException e){
+//             System.out.println("Database Connection failed");
+//             e.printStackTrace();
+//         }
+//     }
 
-             String sql = "Insert INTO student(name,email,age)" +
-                     "VALUES('yogesh', 'y@gmail.com', 20)";
 
-             int result = statement.executeUpdate(sql);
+    // using prepared Statement
+    public void createStudent(Student student){
 
-             if(result == 1){
-                 System.out.println("Student create Successfully");
-             }else{
-                 System.out.println("Connection failed");
-             }
 
-             connection.close();
-         }
-         catch (SQLException e){
-             System.out.println("Database Connection failed");
-             e.printStackTrace();
-         }
-     }
+        String sql = """
+                        INSERT INTO student(name,email,age)
+                        VALUES(?,?,?)
+                     """;
+        try(
+                Connection connection = DriverManager.getConnection(url,username,password);
 
-     public void updateUser(){
 
-         try
-         {
-             Connection connection = DriverManager.getConnection(url,username,password);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                )
+        {
+            preparedStatement.setString(1,student.getName());
+            preparedStatement.setString(2, student.getEmail());
+            preparedStatement.setInt(3,student.getAge());
 
-             Statement statement = connection.createStatement();
+            int result = preparedStatement.executeUpdate();
 
-             String sql = "UPDATE student SET age = 21 " + "WHERE id = 1 ";
+            if(result == 1){
+                System.out.println("Student created successfully");
+            }else{
+                System.out.println("Creation failed");
+            }
 
-             int result = statement.executeUpdate(sql);
+            connection.close();
+        }
+        catch (SQLException e){
+            System.out.println("Database Connection failed");
+            e.printStackTrace();
+        }
+    }
 
-             if(result == 1){
-                 System.out.println("Update Operation Successfully");
-             }else{
-                 System.out.println("Update failed");
-             }
+//     public void updateStudent(){
+//
+//         try
+//         {
+//             Connection connection = DriverManager.getConnection(url,username,password);
+//
+//             Statement statement = connection.createStatement();
+//
+//             String sql = "UPDATE student SET age = 21 " + "WHERE id = 1 ";
+//
+//             int result = statement.executeUpdate(sql);
+//
+//             if(result == 1){
+//                 System.out.println("Update Operation Successfully");
+//             }else{
+//                 System.out.println("Update failed");
+//             }
+//
+//             connection.close();
+//         }
+//         catch (SQLException e){
+//             System.out.println("Database Connection failed");
+//             e.printStackTrace();
+//         }
+//     }
 
-             connection.close();
-         }
-         catch (SQLException e){
-             System.out.println("Database Connection failed");
-             e.printStackTrace();
-         }
-     }
+    // prepared statement
+    public void updateStudent(Student student, long id){
+
+        String sql = """
+                UPDATE student
+              SET name = ?, email = ?, age = ?
+              WHERE id = ?
+                """;
+        try(
+                Connection connection = DriverManager.getConnection(url,username,password);
+
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+        ) {
+
+            preparedStatement.setString(1,student.getName());
+            preparedStatement.setString(2, student.getEmail());
+            preparedStatement.setInt(3,student.getAge());
+            preparedStatement.setLong(4,id);
+
+
+            int RowAffected = preparedStatement.executeUpdate();
+
+            if(RowAffected == 1){
+                System.out.println("Update Operation Successfully");
+            }else{
+                System.out.println("Update failed");
+            }
+        }
+        catch (SQLException e){
+            System.out.println("Database Connection failed");
+            e.printStackTrace();
+        }
+    }
 
      public void deleteUser(){
 
