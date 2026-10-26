@@ -15,17 +15,20 @@ public class Main {
 
         StudentRepository studentRepository = new StudentRepository();
 
-      //  studentRepository.createUser();
-
-//        studentRepository.updateUser();
-
-       // studentRepository.deleteUser();
-
+      //  studentRepository.createStudent();
+        //studentRepository.updateStudent();
+       // studentRepository.deleteStudent();
       //  studentRepository.getStudentById();
 
         //studentRepository.createStudent(new Student("ram","ram@gmail.com",23));
-
-     studentRepository.updateStudent(new Student("yash","@gmiail.com",24),3);
+        // studentRepository.updateStudent(new Student("yash","@gmiail.com",24),3);
+        //studentRepository.deleteStudent(2);
+        //studentRepository.getStudentById(3);
+//        studentRepository.createStudent(new Student("rohit","rohit@gmail.com",23));
+//        studentRepository.createStudent(new Student("yogesh","yogi@gmail.com",22));
+//        studentRepository.createStudent(new Student("divya","divya@gmail.com",20));
+       // studentRepository.getStudent();
+        // studentRepository.getStudentById(6);
 
     }
 }
